@@ -4,7 +4,7 @@
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
  */
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,900italic,300italic,300,400italic,700,700italic,900);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,700italic,400italic,300,300italic,900italic,900,100italic,100);
 html {
   font-family: sans-serif;
   /* 1 */
@@ -373,7 +373,7 @@ html {
 body {
   color: #333;
   transition: all .4s .3s ease-in;
-  font-family: "Merriweather", serif;
+  font-family: 'Lato', sans-serif;
   font-size: 1.2rem; }
   @media screen and (max-width: 500px) {
     body {
@@ -564,83 +564,112 @@ h6 {
   width: 100%;
   height: auto; }
 
-.nav ul {
+nav ul {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   list-style: none; }
-  .nav ul li a {
-    text-decoration: none; }
+  nav ul li a {
+    text-decoration: none;
+    font-weight: 1400; }
 
-.sidebar {
-  width: 0;
-  height: 100%;
+.navigation {
+  display: block; }
+  .navigation ul {
+    font-weight: 700;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0; }
+    .navigation ul li {
+      padding: 0 2%;
+      display: inline-block; }
+
+.hamburger-menu {
+  background-color: #77A6B5;
   position: fixed;
-  bottom: 0;
-  left: 0;
-  color: #fff;
-  background-color: #fc354c;
-  -webkit-transition: 0.5s ease-in-out width;
-  -moz-transition: 0.5s ease-in-out width;
-  -ms-transition: 0.5s ease-in-out width;
-  -o-transition: 0.5s ease-in-out width;
-  transition: 0.5s ease-in-out width; }
-  .sidebar .mobile_collapse {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 0;
-    right: -50px;
+  margin-top: 100px;
+  height: auto;
+  width: 100%;
+  display: none;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px #77A6B5; }
+  .hamburger-menu ul {
+    padding: 25px 0; }
+  .hamburger-menu li {
     display: block;
-    -webkit-transition: 0.5s ease-in-out right;
-    -moz-transition: 0.5s ease-in-out right;
-    -ms-transition: 0.5s ease-in-out right;
-    -o-transition: 0.5s ease-in-out right;
-    transition: 0.5s ease-in-out right; }
-    .sidebar .mobile_collapse button {
-      width: 50px; }
-      .sidebar .mobile_collapse button .fa {
-        width: 100%;
-        height: 50px;
-        line-height: 50px;
-        display: block;
-        color: #fc354c;
-        font-size: 1.8rem;
-        text-align: center; }
-  .show_mobile_nav .sidebar {
-    padding-top: 70px;
-    width: 300px; }
-    .show_mobile_nav .sidebar .mobile_collapse {
-      right: 0; }
-  .sidebar nav {
-    padding: 1rem;
-    overflow: hidden;
-    width: 0; }
-    .show_mobile_nav .sidebar nav {
-      width: 100%; }
-    .sidebar nav ul {
-      margin: 0 0 0 0;
-      list-style: none;
-      padding-left: 0; }
-    .sidebar nav li {
-      line-height: 2.4; }
-      .sidebar nav li a {
-        color: #fff;
-        text-decoration: none;
-        transition: 0.5s ease-in-out;
-        display: none;
-        padding-left: 2rem;
-        line-height: 3;
-        -webkit-transition: 0.5s ease-in-out right;
-        -moz-transition: 0.5s ease-in-out right;
-        -ms-transition: 0.5s ease-in-out right;
-        -o-transition: 0.5s ease-in-out right;
-        transition: 0.5s ease-in-out right; }
-        .show_mobile_nav .sidebar nav li a {
-          display: block;
-          text-align: center;
-          padding-left: 0; }
-        .sidebar nav li a:hover {
-          color: #333; }
+    line-height: 50px; }
+
+.hamburger-icon {
+  display: none;
+  float: right;
+  margin: 22.5px 20px;
+  height: 45px;
+  width: 55px;
+  padding: 0;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  position: relative; }
+  .hamburger-icon span {
+    display: block;
+    position: absolute;
+    width: 30px;
+    margin: 5px 10px;
+    height: 2px;
+    background-color: #fff;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .35s ease-in-out;
+    -moz-transition: .35s ease-in-out;
+    -o-transition: .35s ease-in-out;
+    transition: .35s ease-in-out; }
+
+.hamburger-icon span:nth-child(1) {
+  top: 7px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center; }
+
+.hamburger-icon span:nth-child(2) {
+  top: 14px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center; }
+
+.hamburger-icon span:nth-child(3) {
+  top: 21px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center; }
+
+.hamburger-icon.open span:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 5px;
+  top: 5px; }
+
+.hamburger-icon.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0; }
+
+.hamburger-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  left: 5px;
+  top: 26px; }
+
+.hamburger-icon.open span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%; }
 
 .content {
   padding: 2rem; }

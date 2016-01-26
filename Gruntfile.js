@@ -1,10 +1,10 @@
 'use strict';
 
-  var app = 'app/', assets = 'assets/';
+  // var app = 'app/', assets = 'assets/';
 
-  // The sass task requires contructing an object. In order for that to work, we need to set some variables to hold values.
-  // An object property name doesn't seem to be able to contain variables names.
-  var sassName = app + assets + '/css/style.css', sassValue = app + assets + '/sass/*.scss';
+  // // The sass task requires contructing an object. In order for that to work, we need to set some variables to hold values.
+  // // An object property name doesn't seem to be able to contain variables names.
+  // var sassName = 'app/assets/css/style.css', sassValue = 'app/assets/sass/*.scss';
 
 module.exports = function(grunt) {
 
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         files: [{ // Command to copy the files
           expand: true,
           cwd: 'app/', // Root folder to copy the files from
-          src: ['*', assets + 'views/**', assets + 'images/**'], // All the folders in the app folder that need to be copied
+          src: ['*', 'assets/views/**', 'assets/images/**'], // All the folders in the app folder that need to be copied
           dest: 'build/', // The destination of the files to be copied to
           filter: 'isFile' // A filter. copies only files
         }]
@@ -26,8 +26,8 @@ module.exports = function(grunt) {
       htmldir: { // Name of the 2nd task in the copy task
         files: [{
           expand: true,
-          cwd: app, // Root folder
-          src: ['*', assets + 'views/**'], //Wildcard (*) copies everything that is a file (in this case only the index.html)
+          cwd: 'app/', // Root folder
+          src: ['*', 'assets/views/**'], //Wildcard (*) copies everything that is a file (in this case only the index.html)
           dest: 'build/', // Destination Folder
           filter: 'isFile' // A filter. copies only files
         }]
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'app/', // Root folder
-          src: [ assets + 'images/*'], // Wildcard ** copies all the files and folder from the folder assets
+          src: [ 'assets/images/*'], // Wildcard ** copies all the files and folder from the folder assets
           dest: 'build/', // Destination Folder
           filter: 'isFile' // A filter. copies only files
         }]
@@ -54,16 +54,15 @@ module.exports = function(grunt) {
     delete_sync: { // Start delete_sync task - syncs the specified build folder with the app folder 
       dist: {
         cwd: 'build/', // sync Folder 
-        src: ['*', assets + 'views/**', assets + '/images/**', '!' + assets + 'sass/*.scss', '!' + assets + '/css/*.css', '!' + assets + '/js/*.js'], // Folders that are in- and excluded in the syncing
-        syncWith: app // sync Folder 
+        src: ['*', 'assets/views/**', 'assets/images/**', '!assets/sass/*.scss', '!assets//css/*.css', '!assets//js/*.js'], // Folders that are in- and excluded in the syncing
+        syncWith: 'app/' // sync Folder 
       }
     },
 
-    sass: { // Start Sass task - Converts the scss file to a css file
-      
+    sass: { // Start Sass task - Converts the scss file to a css file  
       dist: {
         files: {
-          sassName : sassValue // compiled file - Original file
+          'app/assets/css/style.css' : 'app/assets/sass/*.scss' // compiled file - Original file
         }
       }
     },
@@ -72,7 +71,7 @@ module.exports = function(grunt) {
       target: {
         files: [{
           expand: true,
-          cwd: app + assets +  '/css/', // Source folder
+          cwd: 'app/assets/css/', // Source folder
           src: ['*.css', '!*.min.css'], // in- and excluded files
           dest: 'build/assets/css', // Destination folder
           ext: '.min.css' // Extension
@@ -81,7 +80,7 @@ module.exports = function(grunt) {
     },
 
     jshint: { // Start Jshint task - Checking of javascript for inconsistencies (vanilla JS only)
-      files: [app + assets + '/js/**/*.js'], // Destination Folder
+      files: ['app/assets/js/**/*.js'], // Destination Folder
       options: { 
         jshintrc: '.jshintrc', // The .jshintrc file (hidden file) is used as a check reference
         globals: {  
@@ -104,14 +103,14 @@ module.exports = function(grunt) {
           'head-script-disabled': true,
           'style-disabled': true
         },
-        src: [app + '/index.html', app + assets + '/views/*.html'] // Files & folders that need checking
+        src: ['app/index.html', 'app/assets/views/*.html'] // Files & folders that need checking
       }
     },
 
     uglify: { // starts the uglify task - Minifies the specified .js files to 1 .min.js file
       build: {
         files: {
-            'build/assets/js/base.min.js': [app + assets + '/js/**/*.js', 'vendor/**/*.js'] // compiled file - Original file 
+            'build/assets/js/base.min.js': ['app/assets//js/**/*.js', 'vendor/**/*.js'] // compiled file - Original file 
         }
       }
     },
@@ -135,7 +134,7 @@ module.exports = function(grunt) {
 
   watch: { // The watch task watches the specified tasks. When changes occur the watch task will run the tasks
       html: { // Live Check changes html
-        files: [app + '/index.html', app + assets + '/views/*.html'], 
+        files: ['app/index.html', 'app/assets/views/*.html'], 
         tasks: ['copy:htmldir', 'htmlhint'],
         options: {
           livereload: true
@@ -143,7 +142,7 @@ module.exports = function(grunt) {
       },
 
       js: { // Live Check changes JS
-        files: [app + assets +'/js/**/*.js'],
+        files: ['app/assets/js/**/*.js'],
         tasks: ['js'],
         options: {
           livereload: true
@@ -151,7 +150,7 @@ module.exports = function(grunt) {
       },
 
       css: { // Live Check changes Css
-        files: [app + assets + '/sass/**/*.scss'],
+        files: ['app/assets/sass/**/*.scss'],
         tasks: ['sass', 'cssmin'],
         options: {
           livereload: true
@@ -159,7 +158,7 @@ module.exports = function(grunt) {
       },
 
       assets: { // Live Check changes assets folder. Runs the copy task with the assetsdir task as focus 
-        files: [app + assets + '/**'],
+        files: ['app/assets/**'],
         tasks: ['copy:assetsdir'],
         options: {
           livereload: true
@@ -167,7 +166,7 @@ module.exports = function(grunt) {
       },
 
       syncfolders: { // Live Check changes specified sync folder
-        files: [app + '*', app + assets + 'views/*', app + assets + 'images/*'], // 
+        files: ['app/*', 'app/assets/views/*', 'app/assets/images/*'], // 
         tasks: ['delete_sync'],
         options: {
           livereload: true
